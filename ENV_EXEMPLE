@@ -1,0 +1,7 @@
+# Secret_key info
+SECRET_KEY=Your key
+
+# Database connection info
+POSTGRES_DB=Your DB name
+POSTGRES_USER=Your DB user
+POSTGRES_PASSWORD=Your DB password
