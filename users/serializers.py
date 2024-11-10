@@ -4,12 +4,15 @@ from django.contrib.auth.password_validation import validate_password
 
 User = get_user_model()
 
+
 class UserSerializer(serializers.ModelSerializer):
     """Сериалайзер для отображения и обновления информации о пользователе."""
+
     class Meta:
         model = User
         fields = ['id', 'first_name', 'last_name', 'email', 'phone', 'role', 'image']
         read_only_fields = ['id', 'email', 'role']
+
 
 class UserCreateSerializer(serializers.ModelSerializer):
     """Сериалайзер для регистрации нового пользователя."""
@@ -35,6 +38,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
             phone=validated_data.get('phone')
         )
         return user
+
 
 class ChangePasswordSerializer(serializers.Serializer):
     """Сериалайзер для смены пароля."""

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
+from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'django_filters',
+    'rest_framework_simplejwt',
 
     'posts',
     'users',  # Ваше приложение для кастомного пользователя
@@ -131,13 +133,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Email settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'SkyStoreClub@yandex.ru'
-EMAIL_HOST_PASSWORD = 'cnkhzgwzudvzgwoz'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND'),
+EMAIL_HOST = os.getenv('EMAIL_HOST'),
+EMAIL_PORT = os.getenv('EMAIL_PORT'),
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL'),
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER'),
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD'),
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL'),
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -164,4 +166,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'users.User'
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
