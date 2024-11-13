@@ -5,9 +5,10 @@ from .models import Ad, Review
 class AdSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
 
+
     class Meta:
         model = Ad
-        fields = ['id', 'title', 'description', 'author', 'created_at']
+        fields = ['id', 'title', 'description', 'author', 'created_at', 'reviews']
 
 
 class ReviewSerializer(serializers.ModelSerializer):

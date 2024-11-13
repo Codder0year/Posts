@@ -17,12 +17,19 @@ class UserCreateView(generics.CreateAPIView):
 
 class UserDetailView(generics.RetrieveUpdateAPIView):
     """Получение и обновление информации о текущем пользователе."""
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
         return self.request.user
+
+
+class UserUpdateView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class ChangePasswordView(APIView):
